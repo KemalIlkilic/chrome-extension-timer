@@ -9,6 +9,10 @@ chrome.action.setBadgeText({ text: "TIME" }, () =>
 
 const nameElement = document.getElementById("name");
 chrome.storage.sync.get(["name"], (data) => {
-  const name = data.name ?? "???";
-  nameElement.textContent = `Hello ${name}`;
+  //const name = data.name ?? "???";
+  //nameElement.textContent = `Hello ${name}`;
+  const name = data.name;
+  nameElement.textContent = name
+    ? `Hello ${name}`
+    : "Please enter your name in options section";
 });
