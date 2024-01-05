@@ -16,5 +16,12 @@ chrome.alarms.onAlarm.addListener((alarm) => {
     chrome.action.setBadgeText({
       text: `${newTime}`,
     });
+    // show notification in every x seconds
+    if (time % 100 == 0) {
+      this.registration.showNotification("mq Kemal", {
+        body: "Napiyon MQ",
+        icon: "icon.png",
+      });
+    }
   });
 });
