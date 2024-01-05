@@ -16,12 +16,17 @@ chrome.alarms.onAlarm.addListener((alarm) => {
     chrome.action.setBadgeText({
       text: `${newTime}`,
     });
-    // show notification in every x seconds
-    if (time % 100 == 0) {
-      this.registration.showNotification("mq Kemal", {
-        body: "Napiyon MQ",
-        icon: "icon.png",
-      });
-    }
+    chrome.storage.sync.get(["notificationTime"], (res) => {
+      // show notification in every x seconds
+      const notificationTime = res.notificationTime
+        ? res.notificationTime
+        : 100;
+      if (time % notificationTime == 0) {
+        this.registration.showNotification("Chrome Timer Extension", {
+          body: `You have been working for ${notificationTime} seconds.`,
+          icon: "icon.png",
+        });
+      }
+    });
   });
 });
