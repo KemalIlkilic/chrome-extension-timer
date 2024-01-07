@@ -8,8 +8,10 @@ Then it will set the badge text to the incremented value.
 chrome.alarms.create({ periodInMinutes: 1 / 60 });
 
 chrome.alarms.onAlarm.addListener((alarm) => {
-  chrome.storage.local.get(["timer"], (res) => {
+  chrome.storage.local.get(["timer", "isRunning"], (res) => {
     const time = res.timer ? res.timer : 0;
+    const isRunning = res.isRunning ?? true;
+    if (!isRunning) return;
     const newTime = time + 1;
     chrome.storage.local.set({ timer: newTime });
 
